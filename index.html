@@ -4,11 +4,12 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Conway's Game of Life - WebGL Demo</title>
+  <title>Conway's GOL - WebGL Demo</title>
   <meta name="description" content="Conway's Game of Life - WebGL Demo">
   <meta name="author" content="SancoSoftware">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="style.css?v=1.0">
+  <script src="js/webgl-utils.js"></script> 
   <script src="js/main.js"></script> 
 
   <!--[if lt IE 9]>
@@ -17,8 +18,36 @@
 </head>
 
 <body>
-  <div id="game-of-life">
+  <h1>Conway's GOL - Web GL</h1>
 
-  </div>
+  <canvas id="game-of-life" width="512" height="512"></canvas>
+
+<script id="2d-vertex-shader" type="x-shader/x-vertex">
+attribute vec2 a_position;
+
+uniform vec2 u_resolution;
+
+void main() {
+   // convert the rectangle from pixels to 0.0 to 1.0
+   vec2 zeroToOne = a_position / u_resolution;
+
+   // convert from 0->1 to 0->2
+   vec2 zeroToTwo = zeroToOne * 2.0;
+
+   // convert from 0->2 to -1->+1 (clipspace)
+   vec2 clipSpace = zeroToTwo - 1.0;
+
+   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+}
+</script>
+     
+<script id="2d-fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+uniform vec4 u_color;
+void main() {
+   gl_FragColor = u_color;
+}
+</script>
 </body>
 </html>
