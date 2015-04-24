@@ -1,5 +1,36 @@
+#game-container
+{
+
+	width: 614px;
+}
+
 #game-of-life
 {
 
-	border: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
+
+#game-controls{
+	float: right;
+	width: 100px;
+}
+.game-control
+{
+	box-sizing: border-box;
+	border: 1px solid white;
+	color: white;
+	font-family: impact;
+	letter-spacing: 2px;
+	cursor: pointer;
+
+	padding: 15px 5px;
+	text-align: center;
+
+	background-color: #7BAED2;
+}
+
+.game-control:hover{
+
+	background-color: #7BD28D;
+};

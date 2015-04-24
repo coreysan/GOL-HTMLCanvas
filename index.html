@@ -19,6 +19,16 @@
 <body>
   <h1>Conway's GOL - Web GL</h1>
 
-  <canvas id="game-of-life" width="512" height="512"></canvas>
+  <div id="game-container">
+    <canvas id="game-of-life" width="512" height="512"></canvas>
+    <div id="game-controls">
+      <div id="playpause" class="game-control">Play</div>
+      <div id="clear" class="game-control">Clear</div>
+      <div id="faster" class="game-control">Faster</div>
+      <div id="slower" class="game-control">Slower</div>
+      <div id="zoom-out" class="game-control">Zoom Out</div>
+      <div id="zoom-in" class="game-control">Zoom In</div>
+    </div>
+  </div>
 </body>
 </html>
