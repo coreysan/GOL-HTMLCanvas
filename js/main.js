@@ -192,8 +192,8 @@
 		isPlaying = false;//stop playback when clicked
 
 		//translate x/y to square coordinates
-		var realX = Math.floor(event.layerX/(canvasW/squaresPerBoard));
-		var realY = Math.floor(event.layerY/(canvasW/squaresPerBoard));
+		var realX = Math.floor((event.layerX)/(canvasW/squaresPerBoard));
+		var realY = Math.floor((event.layerY)/(canvasW/squaresPerBoard));
 		// console.log("Square "+realX+", "+realY);
 
 		tiles[realY][realX] = (tiles[realY][realX] + 1)%2;//switch between 0 & 1
