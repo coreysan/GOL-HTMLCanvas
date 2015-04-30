@@ -6,7 +6,11 @@
 		this.squaresPerBoard = 32;
 		this.canvasW = this.canvasH = 512;
 		this.isPlaying = false;
+
 		this.onFillColor = "#f99";
+
+		this.crosshairTileLength = 20;
+
 		this.stepDelay = 128;
 		this.stepInterval = null;
 
@@ -220,28 +224,70 @@
 
 		this.mouseOverCanvas = function(event) {
 
+			//return a grid number like 0-31
 			var realX = Math.floor((event.layerX)/(this.canvasW/this.squaresPerBoard));
 			var realY = Math.floor((event.layerY)/(this.canvasW/this.squaresPerBoard));
 
 			this.drawBoard();//redraw the board to clear any old hover-markers
 
-			//todo: 
+			this.drawCrosshairs(realX, realY);
+
+			this.drawTile(realX, realY, "#ddd");
+		}
+
+		this.drawCrosshairs = function(xTile, yTile){
 
 			//draw faint gridlines surrounding the mouse-hover, like:
 			// __|_|__
 			// __|_|__
 			//   | |
 
+			var delta = this.crosshairTileLength/2;
 
-			//draw grey in the center
+			//draw x gradient |-->|
+			var grad= this.ctx.createLinearGradient(	(xTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5, 0, 
+																								(xTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5, 0);
+			grad.addColorStop(0, "white");
+			grad.addColorStop(0.5, "#bbb");
+			grad.addColorStop(1, "white");
+
+			//draw horizontal grid lines
+			this.ctx.strokeStyle = grad;
 			this.ctx.beginPath();
-			this.ctx.fillStyle="#ddd";
-			this.ctx.rect(realX*(this.canvasW/this.squaresPerBoard), realY*(this.canvasW/this.squaresPerBoard), (this.canvasW/this.squaresPerBoard), (this.canvasH/this.squaresPerBoard));
-			this.ctx.fill();
+			this.ctx.moveTo((xTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5, 
+											 yTile   *(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.lineTo((xTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5,
+											 yTile   *(this.canvasW/this.squaresPerBoard)-0.5);
+			
+			this.ctx.moveTo((xTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5, 
+											(yTile+1)*(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.lineTo((xTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5,
+											(yTile+1)*(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.stroke();
 
-			console.log("Mouse Over"+realX+", "+ realY);
+
+			grad= this.ctx.createLinearGradient(0, (yTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5, 
+																					0, (yTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5);
+			grad.addColorStop(0, "white");
+			grad.addColorStop(0.5, "#bbb");
+			grad.addColorStop(1, "white");
+
+			//draw horizontal grid lines
+			this.ctx.strokeStyle = grad;
+			this.ctx.beginPath();
+			this.ctx.moveTo((xTile)  *(this.canvasW/this.squaresPerBoard)-0.5, 
+											(yTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.lineTo((xTile)  *(this.canvasW/this.squaresPerBoard)-0.5,
+											(yTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5);
+			
+			this.ctx.moveTo((xTile+1)*(this.canvasW/this.squaresPerBoard)-0.5, 
+											(yTile+0.5-delta)*(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.lineTo((xTile+1)*(this.canvasW/this.squaresPerBoard)-0.5,
+											(yTile+0.5+delta)*(this.canvasW/this.squaresPerBoard)-0.5);
+			this.ctx.stroke();
 
 		}
+
 
 		this.redrawBoard = function(){
 
