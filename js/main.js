@@ -8,8 +8,10 @@
 		this.isPlaying = false;
 
 		this.onFillColor = "#f99";
+		this.activateTileColor = "#fbb";
+		this.deactivateTileColor = "#fdd";
 
-		this.crosshairTileLength = 20;
+		this.crosshairTileLength = 15;
 
 		this.stepDelay = 128;
 		this.stepInterval = null;
@@ -63,6 +65,21 @@
 			this.ctx.rect(x*(this.canvasW/this.squaresPerBoard), y*(this.canvasW/this.squaresPerBoard),
 									(this.canvasW/this.squaresPerBoard), (this.canvasH/this.squaresPerBoard));
 			this.ctx.fill();
+		}
+
+		// User is hovering over the board. 
+		// if the square under is blank, hover like a new square will be placed
+		// else, hover like the square will be subtracted
+		this.drawHoverTile = function (x, y){
+
+			// debugger;
+			if(this.tiles[y][x] > 0)
+			{
+				this.drawTile(x, y, this.deactivateTileColor);
+			}else
+			{
+				this.drawTile(x, y, this.activateTileColor);
+			}
 		}
 
 		this.clearTiles = function (){
@@ -232,7 +249,7 @@
 
 			this.drawCrosshairs(realX, realY);
 
-			this.drawTile(realX, realY, "#ddd");
+			this.drawHoverTile(realX, realY);
 		}
 
 		this.drawCrosshairs = function(xTile, yTile){
