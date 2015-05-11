@@ -21,7 +21,7 @@
 .game-control
 {
 	box-sizing: border-box;
-	border: 1px solid white;
+	border-bottom: 1px solid white;
 	color: white;
 	font-family: impact;
 	letter-spacing: 2px;
