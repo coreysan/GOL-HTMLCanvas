@@ -1,5 +1,5 @@
 function Board(){
-	
+
 	this.squaresPerBoard = 32;
 	this.canvasW = this.canvasH = 512;
 	this.isPlaying = false;
@@ -381,8 +381,13 @@ function Board(){
 		console.log("clickedZoomIn");
 	}
 
+	this.toString = function(){
+		console.log("This is the main GOL Board.");
+	}
+
 	this.init();
 }//Board
+
 
 
 (function () {
